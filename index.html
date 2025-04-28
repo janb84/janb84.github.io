@@ -46,7 +46,7 @@
                 </a>
             </li>
             <li class="nav_item">
-                <a href="#" class="nav_link">
+                <a href="blog.html" class="nav_link">
                     <span class="nav_blog">
                         <svg viewBox="0 0 112 53"  xmlns="http://www.w3.org/2000/svg">
                             <!-- Annie Use Your Telescope -->
@@ -138,16 +138,14 @@
     <div class="footer">
         <div class="footer-left">
             <a href="#" class="nav-home">home</a>
-            <a href="#" class="nav-blog">blog</a>
+            <a href="blog.html" class="nav-blog">blog</a>
             <a href="https://github.com/janb84" class="nav-github">github</a>
             <a href="#" class="nav-projects">projects</a>
         </div>
         <div class="copyright">&copy; 2025</div>
     </div>
 
-    <script>
-    const t=document.querySelector('#checkbox'),e=localStorage.getItem('theme'),n=window.matchMedia('(prefers-color-scheme: dark)');e?(document.documentElement.setAttribute('data-theme',e),'dark'===e&&(t.checked=!0)):n.matches&&(document.documentElement.setAttribute('data-theme','dark'),t.checked=!0);t.addEventListener('change',function(e){e.target.checked?(document.documentElement.setAttribute('data-theme','dark'),localStorage.setItem('theme','dark')):(document.documentElement.setAttribute('data-theme','light'),localStorage.setItem('theme','light'))},!1);
-    </script>
+    <script src="toggle.js"></script>
+    <link rel="stylesheet" href="toggle.css">
 </body>
-
 </html>

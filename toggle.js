@@ -1,0 +1,2 @@
+
+const t=document.querySelector('#checkbox'),e=localStorage.getItem('theme'),n=window.matchMedia('(prefers-color-scheme: dark)');e?(document.documentElement.setAttribute('data-theme',e),'dark'===e&&(t.checked=!0)):n.matches&&(document.documentElement.setAttribute('data-theme','dark'),t.checked=!0);t.addEventListener('change',function(e){e.target.checked?(document.documentElement.setAttribute('data-theme','dark'),localStorage.setItem('theme','dark')):(document.documentElement.setAttribute('data-theme','light'),localStorage.setItem('theme','light'))},!1);
