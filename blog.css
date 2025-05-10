@@ -160,6 +160,12 @@ main {
     border-bottom: 1px solid var(--border-color);
 }
 
+.article-container .article a{
+    text-decoration: underline;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--text-color);
+}
+
 .article-container .article .article-title {
     font-size: 48px;
     letter-spacing: -0.25px;
