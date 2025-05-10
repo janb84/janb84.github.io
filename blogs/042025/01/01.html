@@ -67,15 +67,43 @@
                                 solution: running NixOS on UTM to create a clean, isolated environment for compiling
                                 Bitcoin Core with Guix.</p>
 
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus. Lorem
-                                ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.</p>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus. Lorem
-                                ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.</p>
+                            <span class="continue" id="continue-reading"></span>
+                            <h2>UTM or not?</h2>
+
+                            <p>In this blog post, I'll be using UTM as my virtual machine host, a user-friendly
+                                QEMU-based option for macOS. While there are other ways to run QEMU-based containers,
+                                for this example, I'm using UTM for its native macOS integration and flexibility. As
+                                long as the virtual machine can handle NixOS, you'll be set for a smooth experience.
+                            </p>
+
+                            <p>If you have nix installed on your mac, running UTM is easy:</p>
+                            <pre dir="ltr" translate="no">
+                                <code class="terminal">
+$nix-shell -p qemu_utils utm
+                            </code>
+                        </pre>
+
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus. Lorem
                                 ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.</p>
                             <h2>Subtile</h2>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus. Lorem
                                 ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.</p>
+
+                            <pre>
+                                <code class="language-bash">
+# Example of a shell command
+nix-shell -p nixos.qemu_utils nixos.utm
+
+# Another command
+echo "Hello, World!"
+
+# A multi-line command
+git clone https://github.com/example/project.git \\
+  --depth 1 \\
+  --branch main
+                            </code>
+                        </pre>
+
                         </article>
 
                         <span class="social-section">
@@ -121,7 +149,7 @@
             </div>
         </div>
     </footer>
-    
+
     <script src="../../../toggle.js"></script>
     <link rel="stylesheet" href="../../..//toggle.css">
     <style>
