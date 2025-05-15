@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Janb84.dev - Blog</title>
+    <link rel="stylesheet" href="../../../blog.css">
+</head>
+
+<body>
+    <header class="blog-header">
+        <span class="header-container">
+            <div class="brand-title">janb84.dev</div>
+            <div class="breadcrumb">
+                <ul>
+                    <li><a href="/">home</a></li>
+                    <li><a href="/blog.html">blog</a></li>
+                    <li>15 may 2025</li>
+                </ul>
+            </div>
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox" />
+                    <div class="slider"></div>
+                </label>
+            </div>
+        </span>
+    </header>
+
+    <main>
+        <div class="main-container">
+
+            <div class="article-container">
+                <article class="article">
+                    <div class="categories">
+                        <span class="category item">ARTICLE</span>
+                        <span class="category qemu">QEMU</span>
+                    </div>
+
+                    <h1 class="article-title">
+                        UTM in a NIX-SHELL
+                    </h1>
+                    <h2 class="article-subtitle">Setting up a vm in UTM in a NIX-SHELL</h2>
+
+                    <div class="meta">
+                        <span class="date">15 MAY 2025</span>
+                        <span class="separator">|</span>
+                        <span class="read-time">5 MIN READ - 5 MIN WORK</span>
+                    </div>
+
+
+                    <div class="article-image-container">
+                        <img src="UTMonNIX.jpg" alt="GUIX on NIXOS" class="article-image">
+                        <p class="image-caption">just a laptop</p>
+                    </div>
+                    <span class="article-content-container">
+
+                        <article class="article-content">
+
+                            <p>Setting up a reproducible Bitcoin Core build environment using Guix on a Mac can be a
+                                hassle due to its dependency on a Linux base. In this blog, I'll show you a simple
+                                (partial)
+                                solution: Setup a UTM to host a VM on which NixOS can be run.</p>
+
+
+                            <span class="continue" id="continue-reading"></span>
+                            <h2>What is needed</h2>
+
+                            <p>To get started, you'll need a few things:</p>
+                            <ul>
+                                <li>A fresh copy of NixOS installer: <a
+                                        href="https://channels.nixos.org/nixos-24.11/latest-nixos-minimal-aarch64-linux.iso">ARM</a>
+                                    or <a
+                                        href="https://channels.nixos.org/nixos-24.11/latest-nixos-minimal-x86_64-linux.iso">x86-64</a>
+                                </li>
+                                <li>Around 50GB of free space on a hard disk</li>
+                                <li>QEMU virtual machine host (see below)</li>
+                            </ul>
+
+                            <p>Once you have these prerequisites, we can continue to set up UTM.</p>
+
+                            <h2>UTM or not?</h2>
+
+                            <p>In this blog post, I'll be using UTM as my virtual machine host, a user-friendly
+                                QEMU-based option for macOS. While there are other ways to run QEMU-based containers,
+                                for this example, I'm using UTM for its native macOS integration and apple silicon
+                                support.
+                            </p>
+
+                            <p>If you have Nix installed on your macOS system, running UTM is straightforward:</p>
+                            <pre dir="ltr" translate="no">
+<code class="terminal code-block">$ nix-shell -p qemu_utils utm</code></pre>
+
+                            <p>After Nix completes its setup, you can start UTM from the nix-shell by running `UTM`:</p>
+                            <pre dir="ltr" translate="no">
+<code class="terminal code-block">nix-shell$ utm</code></pre>
+
+                            <p>(Alternatively, you can launch UTM directly from the Applications folder if it's
+                                installed as an application.)</p>
+
+                            <p>Upon launching UTM, you'll be greeted by its welcome screen.</p>
+                            <img src="welcome_screen.png" alt="UTM Welcome screen" class="article-image">
+                            <span class="image-caption">UTM welcome screen</span>
+
+                            <p>On this screen, several options are available. To create a new VM, click the
+                                <code>+ Create a New Virtual Machine</code> button. This will launch a wizard to guide
+                                you through configuring the VM.
+                            </p>
+
+                            <p>Next, you will be presented with the first step in the VM creation wizard, where you can
+                                select the type of the VM.</p>
+
+                            <img src="step01.png" alt="UTM wizard start screen" class="article-image half-size">
+                            <span class="image-caption">UTM wizard start screen</span>
+
+                            <p>In the first step, select the <code>Virtualize</code> option. This is important because
+                                it allows UTM to use QEMU's virtualization capabilities, which are essential for
+                                running NixOS efficiently.</p>
+
+
+                            <p>In the next step, you are be prompted to select the operating system type.</p>
+
+                            <img src="step02.png" alt="UTM wizard OS selection screen" class="article-image half-size">
+                            <span class="image-caption">UTM wizard OS selection screen</span>
+
+                            <p>In this step, select the <code>Linux</code> option. This is important because NixOS is a
+                                Linux distribution, and selecting the correct type ensures that UTM configures the VM
+                                appropriately.</p>
+
+                            <p>This step of the wizard gives the option to select some advanced options and the boot
+                                media.</p>
+                            <img src="step03.png" alt="UTM wizard boot media" class="article-image half-size">
+                            <span class="image-caption">UTM wizard boot media</span>
+
+                            <p>In this step, you have to select the NixOS installer ISO image you downloaded earlier.
+                                This
+                                is the image that UTM will use to boot the VM and install NixOS.</p>
+
+                            <p>After selecting the ISO image, you can configure the VM's hardware settings. First, set
+                                the amount of RAM.</p>
+
+                            <img src="step04.png" alt="UTM wizard memory setting" class="article-image half-size">
+                            <span class="image-caption">UTM wizard memory setting</span>
+
+                            <p>In this step, you can set the amount of RAM for the VM. For NixOS, I recommend at least
+                                8GB of RAM, but you can adjust this based on your needs.</p>
+
+
+                            <p>Next, you can configure the storage settings for the VM. This is where you specify the
+                                size of the virtual hard disk that will be used for NixOS (and GUIX).</p>
+
+                            <img src="step05.png" alt="UTM wizard storage setting" class="article-image half-size">
+                            <span class="image-caption">UTM wizard storage setting</span>
+                            <p>In this step, you can set the size of the virtual hard disk. The default setting is 64GB,
+                                which is a bit high. I recommend at least 50GB for NixOS and GUIX, but you can adjust
+                                this based on your needs.</p>
+
+                            <p>After configuring the storage settings, you can set the shared directory.</p>
+
+                            <img src="step06.png" alt="UTM wizard shared directory setting"
+                                class="article-image half-size">
+                            <span class="image-caption">UTM wizard shared directory setting</span>
+
+                            <p>In this step, you can set the shared directory. This is the directory on your macOS host
+                                that will be shared with the VM. You can set this to any directory you want, but I have
+                                not been able to get it working under NixOS.</p>
+
+                            <p>Next, the wizard shows a summary of the VM settings.</p>
+
+                            <img src="step07.png" alt="UTM wizard summary screen" class="article-image half-size">
+                            <span class="image-caption">UTM wizard summary screen</span>
+
+                            <p>In this step, you can review the settings for the VM. If everything looks good, click the
+                                <code>Save</code> button to create the VM.
+                            </p>
+
+                            <p>After creating the VM, you will be taken to the main UTM window, where you can see the VM
+                                you just created. To start the VM, click the <code>Play</code> button.</p>
+
+                            <h2>Final thoughts</h2>
+
+
+                            <p>Setting up a NixOS VM with UTM on Apple Silicon is a way
+                                to leverage the performance and efficiency of modern macOS hardware. UTM's seamless
+                                integration with Apple Silicon, through its QEMU-based virtualization, makes it an
+                                good option to experiment with NixOS and/or GUIX.</p>
+                            <p> While some features, like shared directories, may not
+                                work perfectly with NixOS, the overall setup process is straightforward. One negative
+                                aspect of using nix to run UTM is that it
+                                creates a folder structure in the host system that may not be ideal for all users. The
+                                folder structure is created under
+                                <code>/Users/--username--/Library/Containers/com.utmapp.UTM/Data</code>,
+                                which can be a bit messy.
+                            </p>
+
+                            <p>For the next steps, refer to my blog post "GUIX on NixOS" to complete the
+                                installation and start exploring.</p>
+                        </article>
+
+                        <span class="social-section">
+                            <!-- Share section -->
+                            <div class="share-section">
+                                <p class="share-title">SHARE THIS STORY</p>
+                                <div class="share-buttons">
+                                </div>
+                            </div>
+
+                            <!-- Tags section -->
+                            <div class="tags-section">
+                                <p class="tags-title">TAGS</p>
+                                <div class="tags">
+                                    <span class="tag">VM</span>
+                                    <span class="tag">UTM</span>
+                                    <span class="tag">QEMU</span>
+                                    <span class="tag">NIX</span>
+                                </div>
+                            </div>
+                        </span>
+
+                    </span>
+                </article>
+
+            </div>
+
+            <div class="sidebar-container">
+                <div class="sidebar">
+                    <h2 class="related-title">Related items</h2>
+                    <!-- Related articles -->
+                    <div class="related-article">
+                        <!-- Related article content -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <p>© 2025 Janb84. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../../toggle.js"></script>
+    <link rel="stylesheet" href="../../..//toggle.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,200..900&display=swap');
+    </style>
+</body>
+
+</html>

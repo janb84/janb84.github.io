@@ -16,7 +16,7 @@
                 <ul>
                     <li><a href="/">home</a></li>
                     <li><a href="/blog.html">blog</a></li>
-                    <li>24-april</li>
+                    <li>15 may 2025</li>
                 </ul>
             </div>
             <div class="theme-switch-wrapper">
@@ -39,20 +39,20 @@
                     </div>
 
                     <h1 class="article-title">
-                        <a href="#">GUIX on NixOS on UTM in a NIX-SHELL</a>
+                        <a href="#">GUIX on NixOS</a>
                     </h1>
-                    <h2 class="article-subtitle">Using Guix in a QEMU-Compatible NixOS Environment</h2>
+                    <h2 class="article-subtitle">Setting up NixOS for GUIX</h2>
 
                     <div class="meta">
-                        <span class="date">24 APRIL 2025</span>
+                        <span class="date">16 MAY 2025</span>
                         <span class="separator">|</span>
-                        <span class="read-time">5 MIN READ</span>
+                        <span class="read-time">5 MIN READ - 30 MIN WORK</span>
                     </div>
 
 
                     <div class="article-image-container">
-                        <img src="GUIXonNIXOS.jpg" alt="GUIX on NIXOS" class="article-image">
-                        <p class="image-caption">just a laptop</p>
+                        <img src="GUIXonNIXOS.png" alt="NIXOS terminal with cyberpunk background" class="article-image">
+                        <p class="image-caption">terminal in cyber</p>
                     </div>
                     <span class="article-content-container">
 
@@ -68,26 +68,23 @@
                                 Bitcoin Core with Guix.</p>
 
                             <span class="continue" id="continue-reading"></span>
-                            <h2>UTM or not?</h2>
+                            <h2 id="install">NixOS install</h2>
 
-                            <p>In this blog post, I'll be using UTM as my virtual machine host, a user-friendly
-                                QEMU-based option for macOS. While there are other ways to run QEMU-based containers,
-                                for this example, I'm using UTM for its native macOS integration and flexibility. As
-                                long as the virtual machine can handle NixOS, you'll be set for a smooth experience.
-                            </p>
+                            <p>Once the VM is correctly set up, start the VM and boot from the NixOS installer.</p>
 
-                            <p>If you have nix installed on your mac, running UTM is easy:</p>
-                            <pre dir="ltr" translate="no">
-                                <code class="terminal">
-$nix-shell -p qemu_utils utm
-                            </code>
-                        </pre>
+                            <p>After booting, you will be presented with the NixOS installer screen.</p>
 
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus. Lorem
-                                ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.</p>
-                            <h2>Subtile</h2>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus. Lorem
-                                ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.</p>
+                            <img src="nixos_installer.png" alt="NixOS installer screen" class="article-image">
+                            <span class="image-caption">NixOS installer screen</span>
+
+                            <p>Select the first option to start the installation process. NixOS will boot into a live
+                                environment. You might see a warning about "no display" - this is normal when running in
+                                UTM. Just wait.</p>
+
+                            <img src="no_display.png" alt="UTM warning screen" class="article-image">
+                            <span class="image-caption">UTM warning screen</span>
+
+                            <p>Once booted, you'll be logged in as root in a command-line interface, where you can configure and install NixOS.</p>
 
 
                         </article>
