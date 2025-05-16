@@ -16,7 +16,7 @@
                 <ul>
                     <li><a href="/">home</a></li>
                     <li><a href="/blog.html">blog</a></li>
-                    <li>15 may 2025</li>
+                    <li>16 may 2025</li>
                 </ul>
             </div>
             <div class="theme-switch-wrapper">
@@ -39,9 +39,9 @@
                     </div>
 
                     <h1 class="article-title">
-                        <a href="#">GUIX on NixOS</a>
+                        <a href="#">Guix on NixOS</a>
                     </h1>
-                    <h2 class="article-subtitle">Setting up NixOS for GUIX</h2>
+                    <h2 class="article-subtitle">Setting up NixOS for Guix using a Flake</h2>
 
                     <div class="meta">
                         <span class="date">16 MAY 2025</span>
@@ -52,39 +52,156 @@
 
                     <div class="article-image-container">
                         <img src="GUIXonNIXOS.png" alt="NIXOS terminal with cyberpunk background" class="article-image">
-                        <p class="image-caption">terminal in cyber</p>
+                        <p class="image-caption">terminal</p>
                     </div>
                     <span class="article-content-container">
 
                         <article class="article-content">
                             <p>Trustless software development and reproducible builds are at the heart of Bitcoin's
-                                ethos, and Guix is the key to making this a reality. By enabling bootstrappable,
-                                auditable builds, Guix empowers developers to verify every step of the Bitcoin Core
-                                compilation process, minimizing reliance on precompiled binaries.</p>
+                                ethos, and Guix is the key to making this a reality.</p>
 
                             <p>Setting up a reproducible Bitcoin Core build environment using Guix on a Mac can be a
-                                hassle due to its dependency on a Linux base. In this blog, I'll show you a simple
-                                solution: running NixOS on UTM to create a clean, isolated environment for compiling
-                                Bitcoin Core with Guix.</p>
+                                hassle due to its dependency on a Linux base. In this blog series, I'll show you a
+                                simple solution: running Guix on a NixOS (within a virtual machine). This article will
+                                show how to use my NixOS flake to set up a NixOS environment for Guix reproducible
+                                builds.</p>
 
                             <span class="continue" id="continue-reading"></span>
-                            <h2 id="install">NixOS install</h2>
+                            <h2 id="install">Booting into NixOS installer</h2>
 
                             <p>Once the VM is correctly set up, start the VM and boot from the NixOS installer.</p>
+                            <p>To do this, you need to download the NixOS ISO image from the official NixOS website.
+                                You can find the latest version of the NixOS ISO image here: <a
+                                    href="https://nixos.org/download.html">NixOS Download</a>. Make sure to select the minimal ISO and
+                                appropriate architecture (x86_64 or aarch64) based on your VM configuration.</p>
 
                             <p>After booting, you will be presented with the NixOS installer screen.</p>
 
-                            <img src="nixos_installer.png" alt="NixOS installer screen" class="article-image">
+                            <img src="nixos_iso.png" alt="NixOS installer screen" class="article-image">
                             <span class="image-caption">NixOS installer screen</span>
 
                             <p>Select the first option to start the installation process. NixOS will boot into a live
-                                environment. You might see a warning about "no display" - this is normal when running in
-                                UTM. Just wait.</p>
+                                environment. In UTM, you might see a warning about "no display" or "no graphics". This is normal and
+                                expected. The screen should return to normal after a few minutes. If you see a black screen
+                                for an extended period, you can try restarting the VM.</p>
 
                             <img src="no_display.png" alt="UTM warning screen" class="article-image">
                             <span class="image-caption">UTM warning screen</span>
 
-                            <p>Once booted, you'll be logged in as root in a command-line interface, where you can configure and install NixOS.</p>
+                            <p>Once the installer is started, you'll be logged in as the default user in a command-line
+                                interface, where you can configure and install NixOS.</p>
+
+                            <img src="nixos_terminal.png" alt="UTM nixos terminal" class="article-image">
+                            <span class="image-caption">UTM nixos terminal</span>
+
+                            <p>The default user does not have sufficient permissions to perform the installation. To proceed, start an interactive root shell with the full root environment by running the following command:</p>
+
+                            <pre><code class="terminal">$ sudo -i</code></pre>
+
+                            <p>Now we are ready to start the installation !</p>
+
+                            <h2 id="partition">Partitioning the disk</h2>
+
+
+                            <p>Next, you'll need to partition the disk. This NixOS installation uses a flake-based configuration designed for a UEFI BIOS, which is the default in UTM. The following partitioning commands reflect this setup.</p>
+
+                            <div class="info-section">
+                                <p>In the live environment, you can use the <code>lsblk</code> command to list the
+                                    available
+                                    disks and partitions. If you use UTM you would should see a disk named
+                                    <code>/dev/vda</code>, which is the
+                                    virtual disk created by UTM. If you would use something else the disk you will see
+                                    depends on your config.
+                                </p>
+                            </div>
+
+                            <p>To partition the disk, use the <code>parted</code> command:</p>
+                            <pre><code>$ parted /dev/sda -- mklabel gpt
+$ parted /dev/vda -- mkpart primary 512MB 100%
+$ parted /dev/vda -- mkpart ESP fat32 1MB 512MB
+$ parted /dev/vda -- set 2 esp on
+$ mkfs.ext4 -L nixos /dev/vda1
+$ mkfs.fat -F 32 -n BOOT /dev/vda2        
+</pre></code>
+                            <div class="important">
+                                <P>Do not change the labels of the partitions, these are used in the configuration to
+                                    mount the partitions after install. If you want to rename the partitions do not
+                                    forget to change the labels in the hardware-config.nix file</P>
+                            </div>
+
+                            <p>In this example, we create: </p>
+                            <ul>
+                                <li>GPT partition table on the disk <code>/dev/vda</code></li>
+                                <li>primary partition for NixOS, and label it <code>nixos</code></li>
+                                <li>primary partition for the EFI System Partition (ESP), and label it
+                                    <code>BOOT</code>
+                                </li>
+                                <li>set the ESP partition as an EFI System Partition (ESP).</li>
+                                <li>format the NixOS partition as ext4 and the ESP as FAT32.</li>
+                            </ul>
+
+                            <div class="info-section">
+                                <p>
+                                    There is no swap partition created because swapping to ssd will shorten the lifespan
+                                    of the ssd</p>
+                            </div>
+
+                            <p>After creating the partitions, you need to mount the created partitions:</p>
+                            <pre><code>$ mount /dev/disk/by-label/nixos /mnt
+$ mkdir -p /mnt/boot                     
+$ mount -o umask=077 /dev/disk/by-label/BOOT /mnt/boot</code></pre>
+
+                            <div class="info-section">
+                                <p>In this example, we mount the NixOS partition to <code>/mnt</code> and the ESP to
+                                    <code>/mnt/boot</code>. This is only temporary for the install
+                                </p>
+                            </div>
+
+                            <h2 id="Flake">Flake clone</h2>
+
+                            <p>To configure NixOS for Guix, we first clone my flake repository, which contains the
+                                necessary configuration files. Since the NixOS installer environment lacks git, we'll
+                                start a nix-shell with git included to perform the cloning.</p>
+                            <pre><code>$ nix-shell -p git</code></pre>
+
+                            <p>Now we can clone the flake repository. To clone the flake repository, run the following
+                                command:</p>
+                            <pre><code>$ git clone https://github.com/janb84/GUIXonNixOS.git /mnt/etc/nixos</code></pre>
+
+                            <p>This command clones the flake repository into the <code>/mnt/etc/nixos</code> directory.
+                            </p>
+
+                            <h2 id="install">Install NixOS</h2>
+                            <p>Now that we have the flake repository cloned, we can proceed with the NixOS installation.
+                                To do this, run the following command:</p>
+                            <pre><code>$ nixos-install --root /mnt --flake /mnt/etc/nixos#aarch64</code></pre>
+
+                            <p>This command installs NixOS using the configuration specified in the flake repository.
+                                The <code>aarch64</code> argument refers to a flake output attribute, typically defining
+                                the target architecture or system configuration. In this flake, 2 output attributes are specified; one for x86_64 systems (use
+                                <code>#x86_64-linux</code> ) and one for aarch64 systems (<code>#aarch64</code>).</p>
+
+                            <p>After the installation is complete, you will be prompted to set a root password. Enter a
+                                secure password and confirm it. Once the installation is finished, you can unmount the partitions and reboot the system.
+                            </p>
+                            <pre><code>$ umount -R /mnt </code></pre>
+                            <p>After unmounting the partitions, you can reboot the system:</p>
+                            <pre><code>$ reboot</code></pre>
+                            <p>After rebooting, you should see the NixOS boot screen. Select the NixOS option to boot
+                                into your newly installed NixOS system.</p>
+
+                            <h2 id="post-install">Post-installation</h2>
+                            <p>After booting into NixOS, you can log in as root using the password you set during the
+                                installation process.</p>
+                            <p>Once logged in, you can start using NixOS with Guix. All you need to do is to clone the bitcoin repository
+                                and start building with Guix.All the necessary packages are already set up to compile Bitcoin with Guix.</p>
+
+                            <div class="info-section">
+                                <p>Due to licensing issues, the MacOS SDK is NOT included. Follow the steps in bitcoin repository to acquire it</p>
+                            </div>
+
+
+
 
 
                         </article>
@@ -104,7 +221,7 @@
                                     <span class="tag">NIXOS</span>
                                     <span class="tag">UTM</span>
                                     <span class="tag">GUIX</span>
-                                    <span class="tag">NIX</span>
+                                    <span class="tag">FLAKES</span>
                                 </div>
                             </div>
                         </span>
@@ -117,9 +234,10 @@
             <div class="sidebar-container">
                 <div class="sidebar">
                     <h2 class="related-title">Related items</h2>
-                    <!-- Related articles -->
                     <div class="related-article">
-                        <!-- Related article content -->
+                        <h3 class="related-article-title">
+                            <a href="../01/01.html">UTM in a NIX-SHELL</a>
+                        </h3>
                     </div>
                 </div>
             </div>
