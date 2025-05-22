@@ -179,7 +179,7 @@ $ mount -o umask=077 /dev/disk/by-label/BOOT /mnt/boot</code></pre>
                             <p>This command installs NixOS using the configuration specified in the flake repository.
                                 The <code>aarch64</code> argument refers to a flake output attribute, typically defining
                                 the target architecture or system configuration. In this flake, 2 output attributes are specified; one for x86_64 systems (use
-                                <code>#x86_64-linux</code> ) and one for aarch64 systems (<code>#aarch64</code>).</p>
+                                <code>#x86_64</code> ) and one for aarch64 systems (<code>#aarch64</code>).</p>
 
                             <p>After the installation is complete, you will be prompted to set a root password. Enter a
                                 secure password and confirm it. Once the installation is finished, you can unmount the partitions and reboot the system.
