@@ -116,7 +116,7 @@
                             </div>
 
                             <p>To partition the disk, use the <code>parted</code> command:</p>
-                            <pre><code>$ parted /dev/sda -- mklabel gpt
+                            <pre><code>$ parted /dev/vda -- mklabel gpt
 $ parted /dev/vda -- mkpart primary 512MB 100%
 $ parted /dev/vda -- mkpart ESP fat32 1MB 512MB
 $ parted /dev/vda -- set 2 esp on
