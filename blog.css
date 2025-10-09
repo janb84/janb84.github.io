@@ -7,6 +7,7 @@
     --toggle-circle: #333333;
     --info-bg: #f5f7fa;
     --info-text-color: #333;
+    --article-font-size: 20px;
 }
 
 [data-theme="dark"] {
@@ -229,7 +230,7 @@ main {
 
 .article-container .article .article-content-container .article-content p {
     font-family: "Source Serif 4", "Times New Roman", serif;
-    font-size: 24px;
+    font-size: var(--article-font-size);
     line-height: 36px;
     margin-block-start: 1em; /* Default top margin */
 }
@@ -276,7 +277,7 @@ main {
 
 .article-container .article .article-content-container .article-content li {
     font-family: "Source Serif 4", "Times New Roman", serif;
-    font-size: 24px;
+    font-size: var(--article-font-size);
     line-height: 36px;
 }
 
@@ -296,7 +297,7 @@ main {
     margin: 1em 0; 
     color: var(--info-text-color);
     position: relative;
-    font-size: 22px;
+    font-size: var(--article-font-size);
 }
 
 .article-container .article .article-content-container .article-content .info-section::before {
@@ -323,7 +324,7 @@ main {
     font-style: normal;
     color: #a80000;
     position: relative;
-    font-size: 22px;
+    font-size: var(--article-font-size);
 }
 
 .article-container .article .article-content-container .article-content .important::before {
@@ -361,7 +362,7 @@ main {
     text-align: center;
     content: "● ● ●";
     color: var(--text-color);
-    font-size: 24px; /* Adjust size as needed */
+    font-size: var(--article-font-size); 
     line-height: 36px;
     letter-spacing: 0.5em;
     margin-block-end: 0;
