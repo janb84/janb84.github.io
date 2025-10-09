@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Janb84.dev - Blog</title>
+    <link rel="stylesheet" href="../../../blog.css">
+</head>
+
+<body>
+    <header class="blog-header">
+        <span class="header-container">
+            <div class="brand-title">janb84.dev</div>
+            <div class="breadcrumb">
+                <ul>
+                    <li><a href="/">home</a></li>
+                    <li><a href="/blog.html">blog</a></li>
+                    <li>7 OCT 2025</li>
+                </ul>
+            </div>
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox" />
+                    <div class="slider"></div>
+                </label>
+            </div>
+        </span>
+    </header>
+
+    <main>
+        <div class="main-container">
+
+            <div class="article-container">
+                <article class="article">
+                    <div class="categories">
+                        <span class="category item">ARTICLE</span>
+                        <span class="category utm">UTM</span>
+                    </div>
+
+                    <h1 class="article-title">
+                        <a href="#">Serial console on UTM</a>
+                    </h1>
+                    <h2 class="article-subtitle">Adding a serial console to UTM for easy copy and paste</h2>
+
+                    <div class="meta">
+                        <span class="date">7 OCT 2025</span>
+                        <span class="separator">|</span>
+                        <span class="read-time">5 MIN READ</span>
+                    </div>
+
+
+                    <div class="article-image-container">
+                        <img src="header.png" alt="NIXOS terminal with cyberpunk background" class="article-image">
+                        <p class="image-caption">terminal</p>
+                    </div>
+                    <span class="article-content-container">
+
+                        <article class="article-content">
+                            <p>Sometimes you just want to copy and past between the host machine and a UTM console.</p>
+
+                            <p>Struggling to copy and paste from your host machine to a UTM terminal window? You're not alone, it's trickier than it sounds! In this short blog post, I will show you how to add a serial console to your UTM VM instance, enabling copy and paste.</p>
+
+                            <span class="continue" id="continue-reading"></span>
+                            <h2 id="serial console">Adding a serial console</h2>
+                            <p>Adding a serial console to a VM involves just a few steps;</p>
+                            <ul>
+                                <li>Open UTM and create a VM (or select a excisting VM)</li>
+                                <li>Make sure that the VM is stopped and open the settings of the VM.</li>
+                                <li>Go to the "devices" section of the VM settings</li>
+                                <li>Press the "+New" button</li>
+                                <li>Select "Serial" (see figure 1)</li>
+                            </uL>
+
+                            <img src="serial.png" alt="UTM VM settins screen" class="article-image"/>
+                            <span class="image-caption">figure 1: UTM VM settings screen</span>
+
+                            <p>After adding the serial console, you can start the VM. While the VM is booting, a new terminal window will open, which is the serial console. In this window, you can interact with the VM's console just like in the UTM window. With one key difference: you can now easily copy and paste text between your host machine and the VM console!</p>
+                            <div class="info-section">
+                                <p> You can still interact with the VM using the UTM window, but for copy and paste, use the serial console window.
+                                </p>
+                            </div>
+
+                        </article>
+
+                        <span class="social-section">
+                            <!-- Share section -->
+                            <div class="share-section">
+                                <p class="share-title">SHARE THIS STORY</p>
+                                <div class="share-buttons">
+                                </div>
+                            </div>
+
+                            <!-- Tags section -->
+                            <div class="tags-section">
+                                <p class="tags-title">TAGS</p>
+                                <div class="tags">
+                                    <span class="tag">UTM</span>
+                                    <span class="tag">TIPS</span>
+                                </div>
+                            </div>
+                        </span>
+
+                    </span>
+                </article>
+
+            </div>
+
+            <div class="sidebar-container">
+                <div class="sidebar">
+                    <h2 class="related-title">Related items</h2>
+                    <div class="related-article">
+                        <h3 class="related-article-title">
+                            <a href="../01/01.html">UTM in a NIX-SHELL</a>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <p>© 2025 Janb84. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../../toggle.js"></script>
+    <link rel="stylesheet" href="../../..//toggle.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,200..900&display=swap');
+    </style>
+</body>
+
+</html>
