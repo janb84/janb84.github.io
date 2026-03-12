@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ .Title }} - {{ .Site.Title }}</title>
+    <link rel="stylesheet" href="{{ "styles.css" | relURL }}">
+    <link rel="stylesheet" href="{{ "toggle.css" | relURL }}">
+    <link rel="stylesheet" href="{{ "projects.css" | relURL }}">
+</head>
+<body>
+    <header>
+        <div class="brand-title"><a href="/">{{ .Site.Title }}</a> - projects</div>
+        <div class="theme-switch-wrapper">
+            <label class="theme-switch" for="checkbox">
+                <input type="checkbox" id="checkbox" />
+                <div class="slider"></div>
+            </label>
+        </div>
+    </header>
+    <main class="projects-main">
+        <div class="projects-container">
+            {{ range $i, $p := .Params.projects }}
+            <div class="project-entry">
+                <div class="project-meta">
+                    <span class="project-index">{{ printf "%02d" (add $i 1) }}</span>
+                    <div class="project-tags">
+                        {{ range $p.tags }}<span class="project-tag">{{ . }}</span>{{ end }}
+                    </div>
+                </div>
+                <h2 class="project-name">{{ $p.name }}</h2>
+                <p class="project-description">{{ $p.description }}</p>
+                <a href="{{ $p.url }}" class="project-link" target="_blank" rel="noopener">VISIT →</a>
+            </div>
+            {{ end }}
+        </div>
+    </main>
+    <div class="footer">
+        <div class="footer-left">
+            <a href="/" class="nav-home">home</a>
+            <a href="/blog/" class="nav-blog">blog</a>
+            <a href="{{ .Site.Params.github }}" class="nav-github">github</a>
+            <a href="/projects/" class="nav-projects">projects</a>
+        </div>
+        <div class="copyright">&copy; {{ now.Year }}</div>
+    </div>
+    <script src="{{ "toggle.js" | relURL }}"></script>
+</body>
+</html>

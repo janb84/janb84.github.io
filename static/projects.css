@@ -1,0 +1,108 @@
+.projects-main {
+    flex: 1;
+    width: 100%;
+}
+
+.projects-container {
+    width: 100%;
+}
+
+.projects-title {
+    margin: 0 0 1.5em;
+}
+
+.projects-title svg {
+    fill: var(--text-color);
+    height: clamp(3rem, 7vw, 6rem);
+    width: auto;
+    display: block;
+}
+
+.project-entry {
+    border-top: 1px solid var(--border-color);
+    padding: 3em 0 2.5em;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.project-entry:last-child {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.project-meta {
+    display: flex;
+    align-items: center;
+    gap: 1.5em;
+}
+
+.project-index {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 0.15em;
+    color: var(--text-color);
+    opacity: 0.35;
+}
+
+.project-tags {
+    display: flex;
+    gap: 0.5em;
+}
+
+.project-tag {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 1px solid var(--border-color);
+    padding: 0.2em 0.6em;
+    opacity: 0.6;
+}
+
+.project-name {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin: 0;
+    color: var(--text-color);
+    text-transform: lowercase;
+}
+
+.project-description {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0;
+    max-width: 600px;
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+.project-link {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.12em;
+    color: var(--text-color);
+    text-decoration: none;
+    border: 1px solid var(--border-color);
+    padding: 0.6em 1.2em;
+    display: inline-block;
+    align-self: flex-start;
+    margin-top: 0.5em;
+    transition: background-color 0.15s, color 0.15s;
+}
+
+.project-link:hover {
+    background-color: var(--text-color);
+    color: var(--bg-color);
+}
+
+@media screen and (max-width: 600px) {
+    .project-entry {
+        padding: 2em 0 2.5em;
+    }
+}
