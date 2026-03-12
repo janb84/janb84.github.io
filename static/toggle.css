@@ -5,6 +5,17 @@
     position: absolute;
     top: 20px;
     right: 20px;
+    gap: 6px;
+    font-size: 14px;
+    user-select: none;
+}
+
+.theme-switch-wrapper::before {
+    content: "☀";
+}
+
+.theme-switch-wrapper::after {
+    content: "☽";
 }
 
 .theme-switch {

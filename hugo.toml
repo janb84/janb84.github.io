@@ -1,0 +1,12 @@
+baseURL = "https://janb84.dev/"
+languageCode = "en-us"
+title = "janb84.dev"
+theme = "janb84"
+
+[params]
+  github = "https://github.com/janb84"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

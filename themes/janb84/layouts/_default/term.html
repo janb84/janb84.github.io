@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ .Title }} - {{ .Site.Title }}</title>
+    <link rel="stylesheet" href="{{ "blog.css" | relURL }}">
+    <link rel="stylesheet" href="{{ "toggle.css" | relURL }}">
+</head>
+<body>
+    <header class="blog-header">
+        <span class="header-container">
+            <div class="brand-title">{{ .Site.Title }}</div>
+            <div class="breadcrumb">
+                <ul>
+                    <li><a href="/">home</a></li>
+                    <li><a href="/blog/">blog</a></li>
+                    <li>{{ .Title | lower }}</li>
+                </ul>
+            </div>
+        </span>
+    </header>
+    <main>
+        <div class="main-container">
+            <div class="article-container">
+                {{ range .Pages }}
+                <article class="article">
+                    <h1 class="article-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h1>
+                </article>
+                {{ end }}
+            </div>
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content"><p>&copy; {{ now.Year }} Janb84. All rights reserved.</p></div>
+        </div>
+    </footer>
+    <script src="{{ "toggle.js" | relURL }}"></script>
+</body>
+</html>

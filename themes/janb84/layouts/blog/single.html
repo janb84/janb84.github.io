@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ .Site.Title }} - {{ .Title }}</title>
+    <link rel="stylesheet" href="{{ "blog.css" | relURL }}">
+    <link rel="stylesheet" href="{{ "toggle.css" | relURL }}">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,200..900&display=swap');
+    </style>
+</head>
+
+<body>
+    <header class="blog-header">
+        <span class="header-container">
+            <div class="brand-title">{{ .Site.Title }}</div>
+            <div class="breadcrumb">
+                <ul>
+                    <li><a href="/">home</a></li>
+                    <li><a href="/blog/">blog</a></li>
+                    <li>{{ .Date.Format "2 Jan 2006" | lower }}</li>
+                </ul>
+            </div>
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox" />
+                    <div class="slider"></div>
+                </label>
+            </div>
+        </span>
+    </header>
+
+    <main>
+        <div class="main-container">
+            <div class="article-container">
+                <article class="article">
+                    <div class="categories">
+                        {{ range .Params.categories }}
+                        <span class="category {{ lower . }}">{{ . }}</span>
+                        {{ end }}
+                    </div>
+
+                    <h1 class="article-title">{{ .Title }}</h1>
+                    <h2 class="article-subtitle">{{ .Params.subtitle }}</h2>
+
+                    <div class="meta">
+                        <span class="date">{{ .Date.Format "2 Jan 2006" | upper }}</span>
+                        <span class="separator">|</span>
+                        <span class="read-time">{{ .Params.readtime }}</span>
+                    </div>
+
+                    {{ with .Params.featured_image }}
+                    <div class="article-image-container">
+                        {{ $img := $.Resources.GetMatch . }}
+                        {{ if $img }}
+                        <img src="{{ $img.RelPermalink }}" alt="{{ $.Params.image_alt }}" class="article-image">
+                        {{ else }}
+                        <img src="{{ $.RelPermalink }}{{ . }}" alt="{{ $.Params.image_alt }}" class="article-image">
+                        {{ end }}
+                        <p class="image-caption">{{ $.Params.image_caption }}</p>
+                    </div>
+                    {{ end }}
+
+                    <span class="article-content-container">
+                        <article class="article-content">
+                            {{ .Content }}
+                        </article>
+
+                        <span class="social-section">
+                            <div class="share-section">
+                                <p class="share-title">SHARE THIS STORY</p>
+                                <div class="share-buttons"></div>
+                            </div>
+                            <div class="tags-section">
+                                <p class="tags-title">TAGS</p>
+                                <div class="tags">
+                                    {{ range .Params.tags }}
+                                    <span class="tag">{{ . }}</span>
+                                    {{ end }}
+                                </div>
+                            </div>
+                        </span>
+                    </span>
+                </article>
+            </div>
+
+            <div class="sidebar-container">
+                <div class="sidebar">
+                    <h2 class="related-title">Related items</h2>
+                    {{ $currentPage := . }}
+                    {{ range first 3 (where .Site.RegularPages "Section" "blog") }}
+                    {{ if ne .RelPermalink $currentPage.RelPermalink }}
+                    <div class="related-article">
+                        <h3 class="related-article-title">
+                            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                        </h3>
+                    </div>
+                    {{ end }}
+                    {{ end }}
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <p>&copy; {{ now.Year }} Janb84. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ "toggle.js" | relURL }}"></script>
+</body>
+
+</html>
