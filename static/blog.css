@@ -1,28 +1,4 @@
 :root {
-    --bg-color: #f5f9ff;
-    --bg-alt: #eaf6ff;
-    --panel-color: #ffffff;
-    --text-color: #10131d;
-    --subtext-color: #3f4a63;
-    --border-color: #21e6ff;
-    --accent-primary: #00e5ff;
-    --accent-secondary: #ff4d6d;
-    --accent-tertiary: #7dff63;
-    --code-bg: #eef4ff;
-    --toggle-bg: #c6d8ea;
-    --toggle-circle: #0c1223;
-    --info-bg: #ebfbff;
-    --info-text-color: #113c48;
-    --article-font-size: 20px;
-    --grid-line: rgba(33, 230, 255, 0.15);
-    --shadow-color: rgba(0, 229, 255, 0.18);
-
-    --font-display: "Orbitron", "Rajdhani", sans-serif;
-    --font-body: "Rajdhani", "Trebuchet MS", sans-serif;
-    --font-mono: "IBM Plex Mono", "Courier New", monospace;
-}
-
-[data-theme="dark"] {
     --bg-color: #050711;
     --bg-alt: #090f1f;
     --panel-color: #0d1225;
@@ -33,12 +9,15 @@
     --accent-secondary: #ff4d6d;
     --accent-tertiary: #92ff70;
     --code-bg: #121a33;
-    --toggle-bg: #1d2a4d;
-    --toggle-circle: #7dff63;
     --info-bg: #0f1a2b;
     --info-text-color: #c8f6ff;
+    --article-font-size: 20px;
     --grid-line: rgba(0, 229, 255, 0.1);
     --shadow-color: rgba(0, 229, 255, 0.25);
+
+    --font-display: "Orbitron", "Rajdhani", sans-serif;
+    --font-body: "Rajdhani", "Trebuchet MS", sans-serif;
+    --font-mono: "IBM Plex Mono", "Courier New", monospace;
 }
 
 html {
@@ -111,14 +90,6 @@ header {
 
         .brand-title {
             order: 1;
-        }
-
-        .theme-switch-wrapper {
-            order: 3;
-            margin-left: auto;
-            position: unset;
-            padding-top: 0.5em;
-            padding-right: 20px;
         }
 
         .breadcrumb {

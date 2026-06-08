@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ .Site.Title }} - {{ .Title }}</title>
     <link rel="stylesheet" href="{{ "blog.css" | relURL }}">
-    <link rel="stylesheet" href="{{ "toggle.css" | relURL }}">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
     </style>
@@ -22,12 +21,6 @@
                     <li><a href="/blog/">blog</a></li>
                     <li>{{ .Date.Format "2 Jan 2006" | lower }}</li>
                 </ul>
-            </div>
-            <div class="theme-switch-wrapper">
-                <label class="theme-switch" for="checkbox">
-                    <input type="checkbox" id="checkbox" />
-                    <div class="slider"></div>
-                </label>
             </div>
         </span>
     </header>
@@ -111,8 +104,6 @@
             </div>
         </div>
     </footer>
-
-    <script src="{{ "toggle.js" | relURL }}"></script>
 </body>
 
 </html>
